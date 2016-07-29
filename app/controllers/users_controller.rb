@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def index
-    @users = User.all?
+    @users = User.all
   end
 
   def new
@@ -22,6 +22,22 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def destroy
+    @user = User.find(params[:id]).destroy
+    respond_to do |format|
+      format.html { redirect_to users_url, notice: 'User was successfully destoyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+
+
+private
 
   def permitted_user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
