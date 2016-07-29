@@ -4,9 +4,12 @@ Rails.application.routes.draw do
   get 'products/new'
   get 'products/show'
 
+  get 'users/new'
+
 
   #RESTFUL routes
   resources :products
+  resources :users
 
 
 end
