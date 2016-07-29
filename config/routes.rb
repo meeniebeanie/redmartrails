@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'products/new'
   get 'products/show'
 
-  get 'users/new'
+  get 'users/new' 
 
 
   #RESTFUL routes
