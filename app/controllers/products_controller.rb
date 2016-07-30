@@ -30,6 +30,18 @@ class ProductsController < ApplicationController
     end
   end
 
+  def update #responds to patch request
+    @product = Product.find(params[:id])
+    respond_to do |format|
+      if @product.update_attributes(permitted_product_params)
+        flash[:success] = 'Product was successfully updated.'
+        format.html { redirect_to product_url }
+      else
+        render 'edit'
+      end
+    end
+  end
+
 private
 
   def permitted_product_params
