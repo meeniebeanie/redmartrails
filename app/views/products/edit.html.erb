@@ -1,7 +1,7 @@
 <h1>Products#edit</h1>
 
   <div class="field">
-  <%= form_for Product.find(params[:id]) do |f| %>
+  <%= form_for @product do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
 
