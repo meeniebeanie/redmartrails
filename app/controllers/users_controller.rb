@@ -8,7 +8,11 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def create
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def create #responds to post request
     @user = User.new(permitted_user_params)
     respond_to do |format|
       if @user.save
@@ -23,9 +27,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @user = User.find(params[:id])
-  end
+
 
   def destroy
     @user = User.find(params[:id]).destroy
@@ -35,12 +37,27 @@ class UsersController < ApplicationController
     end
   end
 
-
-
-private
-
-  def permitted_user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  def edit
+    @user = User.find(params[:id])
   end
 
+  def update #responds to patch request
+    @user = User.find(params[:id])
+    respond_to do |format|
+      if @user.update_attributes(permitted_user_params)
+        flash[:success] = 'User was successfully updated.'
+        format.html { redirect_to user_url }
+      else
+        render 'edit'
+      end
+    end
+  end
+
+
+
+  private
+
+    def permitted_user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
 end
