@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160730135532) do
+ActiveRecord::Schema.define(version: 20160730164249) do
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
@@ -19,6 +19,21 @@ ActiveRecord::Schema.define(version: 20160730135532) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "category"
+    t.integer  "reviews_id"
+    t.integer  "users_id"
+    t.index ["reviews_id"], name: "index_products_on_reviews_id"
+    t.index ["users_id"], name: "index_products_on_users_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string   "comment"
+    t.string   "rating"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "users_id"
+    t.integer  "products_id"
+    t.index ["products_id"], name: "index_reviews_on_products_id"
+    t.index ["users_id"], name: "index_reviews_on_users_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -29,6 +44,10 @@ ActiveRecord::Schema.define(version: 20160730135532) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.string   "password_digest"
+    t.integer  "reviews_id"
+    t.integer  "products_id"
+    t.index ["products_id"], name: "index_users_on_products_id"
+    t.index ["reviews_id"], name: "index_users_on_reviews_id"
   end
 
 end
